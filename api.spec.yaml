@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: Webflow DATE Team Code Challenge Api
+  version: 0.0.1
+servers:
+  - url: https://date-code-challenge.webflow-data.com
+paths:
+  /geolocation/country:
+    get:
+      summary: Returns a country of origin for a given ip address
+      description: >
+        # Example
+        ```sh
+        > curl \
+            -H "x-api-key: <api key>" \
+            -H "Accept: application/json" \
+            -X GET "https://date-code-challenge.webflow-data.com/geolocation/country?ipAddress=<ip address>"
+
+        > {"countryCode":"SG","countryName":"Singapore"}
+        ```
+      parameters:
+        - name: ipAddress
+          in: query
+          required: true
+          schema:
+            type: string
+            format: ipv4
+        - name: x-api-key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Country information for the ip address
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - countryCode
+                  - countryName
+                properties:
+                  countryCode:
+                    type: string
+                  countryName:
+                    type: string
+        '400':
+          description: An invalid ip address was submitted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Invalid or missing authentication token

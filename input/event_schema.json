@@ -1,0 +1,210 @@
+{
+  "$id": "#events",
+  "oneOf": [
+    {
+      "description": "Site events",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "topic",
+        "timestamp",
+        "siteId"
+      ],
+      "properties": {
+        "topic": {
+          "const": "SITE_EVENT"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "siteId": {
+          "type": "string"
+        },
+        "action": {
+          "oneOf": [
+            {
+              "description": "Site created",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "siteName"
+              ],
+              "properties": {
+                "type": {
+                  "const": "CREATE"
+                },
+                "siteName": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "description": "Site published",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "const": "PUBLISH"
+                }
+              }
+            },
+            {
+              "description": "Site unpublished",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "const": "UNPUBLISH"
+                }
+              }
+            },
+            {
+              "description": "Site name updated",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "siteName"
+              ],
+              "properties": {
+                "type": {
+                  "const": "UPDATE_SITE_NAME"
+                },
+                "siteName": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "description": "Site visited",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "clientIpAddress",
+                "latencyMs"
+              ],
+              "properties": {
+                "type": {
+                  "const": "VISIT"
+                },
+                "clientIpAddress": {
+                  "type": "string",
+                  "format": "ipv4"
+                },
+                "latencyMs": {
+                  "type": "number"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "User events",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "const": "USER_EVENT"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "action": {
+          "oneOf": [
+            {
+              "description": "User created",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "email",
+                "plan"
+              ],
+              "properties": {
+                "type": {
+                  "const": "CREATE"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "plan": {
+                  "type": "string",
+                  "enum": [
+                    "FREE",
+                    "BASIC",
+                    "BUSINESS",
+                    "ENTERPRISE"
+                  ]
+                }
+              }
+            },
+            {
+              "description": "User deleted",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "DELETE"
+                }
+              }
+            },
+            {
+              "description": "User email updated",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "email"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "UPDATE_EMAIL"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "description": "User plan updated",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "plan"
+              ],
+              "properties": {
+                "type": {
+                  "const": "UPDATE_PLAN"
+                },
+                "plan": {
+                  "type": "string",
+                  "enum": [
+                    "FREE",
+                    "BASIC",
+                    "BUSINESS",
+                    "ENTERPRISE"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
