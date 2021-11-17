@@ -142,7 +142,7 @@ The expected output would be:
 - `SiteName` is empty because it wasn't present in the source event.  
 
 
-# Tips on rocking this code challenge
+# Tips on rocking this code challenge!
 
 ## Writing clean, scalable and well-tested code
 
